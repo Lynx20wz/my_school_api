@@ -17,19 +17,18 @@ class Parser {
     return Parser._(token: token, studentId: id);
   }
 
-  Future<List<Homework>> getHomework(int from, int to) async {
-    if (from > to) {
+  Future<List<Homework>> getHomework(DateTime from, DateTime to) async {
+    if (from.isAfter(to)) {
       throw ArgumentError('Invalid date range');
     }
 
     final dateFormat = DateFormat('y-MM-dd');
-    final now = DateTime.now();
 
     final response = await get(
       Uri.parse('$baseUrl/family/web/v1/homeworks').replace(
         queryParameters: {
-          'from': dateFormat.format(now.add(Duration(days: from))),
-          'to': dateFormat.format(now.add(Duration(days: to))),
+          'from': dateFormat.format(from),
+          'to': dateFormat.format(to),
           'student_id': studentId.toString(),
         },
       ),
