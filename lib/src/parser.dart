@@ -8,13 +8,13 @@ const baseUrl = 'https://authedu.mosreg.ru/api';
 
 class Parser {
   final String token;
-  late final int studentId;
+  final int studentId;
 
-  Parser._({required this.token, required this.studentId});
+  Parser._(this.token, this.studentId);
 
   static Future<Parser> create({required String token, int? studentId}) async {
     final id = studentId ?? await _getStudentId(token);
-    return Parser._(token: token, studentId: id);
+    return Parser._(token, id);
   }
 
   Future<List<Homework>> getHomework(DateTime from, DateTime to) async {
