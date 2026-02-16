@@ -1,4 +1,4 @@
 library;
 
 export 'src/parser.dart';
-export 'src/classes/homework.dart';
+export 'src/classes/classes.dart';
