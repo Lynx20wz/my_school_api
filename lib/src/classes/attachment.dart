@@ -1,5 +1,8 @@
 import 'dart:convert' show jsonDecode, jsonEncode;
 
+/// Represents an attachment associated with a homework or mark.
+///
+/// Attachments are files or resources, for example: "ЦДЗ (Цифровое Домашнее Задание)", that can be attached to homework.
 class Attachment {
   final String url;
   final String title;

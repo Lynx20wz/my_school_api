@@ -7,13 +7,13 @@ import 'package:my_school_api/src/classes/mark.dart';
 
 import 'classes/homework.dart';
 
-class MySchoolParser {
+class MySchoolApi {
   static const _baseUrl = 'https://authedu.mosreg.ru/api';
 
   final String token;
   final int studentId;
 
-  MySchoolParser._(this.token, this.studentId);
+  MySchoolApi._(this.token, this.studentId);
 
   /// Fetches homework for a student within a given date range.
   ///
@@ -81,9 +81,12 @@ class MySchoolParser {
     }
   }
 
-  static Future<MySchoolParser> init(String token, {int? studentId}) async {
+  Future<void> markHomeworkAsDone(Homework hk) async =>
+      throw UnimplementedError();
+
+  static Future<MySchoolApi> init(String token, {int? studentId}) async {
     final id = studentId ?? await _getStudentId(token);
-    return MySchoolParser._(token, id);
+    return MySchoolApi._(token, id);
   }
 
   static Map<String, String> _getHeaders(String token) => {
