@@ -53,7 +53,9 @@ class MySchoolParser {
   /// If [to] is not provided, it defaults to [from].
   Future<List<Mark>> getMarks(DateTime from, {DateTime? to}) async {
     if (DateTime.now().isBefore(from)) {
-      log('\033[43m[WARN] Attempted to fetch marks before current date\033[0m');
+      log(
+        r'\033[43m[WARN] Attempted to fetch marks before current date\033[0m',
+      );
     }
 
     to ??= from;

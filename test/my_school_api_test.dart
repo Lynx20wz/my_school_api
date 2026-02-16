@@ -5,12 +5,12 @@ void main() {
   group('homework class tests', () {
     test('fromMap', () {
       final homework = Homework.fromMap({
-        "homework": "выучить записи в тетради",
-        "attachments": [],
-        "materials": [],
-        "date": "2026-02-16",
-        "subject_name": "Химия",
-        "is_done": false,
+        'homework': 'выучить записи в тетради',
+        'attachments': [],
+        'materials': [],
+        'date': '2026-02-16',
+        'subject_name': 'Химия',
+        'is_done': false,
       });
 
       expect(homework.date, DateTime(2026, 2, 16));
