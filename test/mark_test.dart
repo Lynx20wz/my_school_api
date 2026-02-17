@@ -44,10 +44,30 @@ void main() {
       });
 
       test('creates Mark with all valid grade values', () {
-        final mark2 = Mark.fromMap({'id': 1, 'value': '2', 'date': '2026-02-16', 'subject_name': 'Математика'});
-        final mark3 = Mark.fromMap({'id': 2, 'value': '3', 'date': '2026-02-16', 'subject_name': 'Математика'});
-        final mark4 = Mark.fromMap({'id': 3, 'value': '4', 'date': '2026-02-16', 'subject_name': 'Математика'});
-        final mark5 = Mark.fromMap({'id': 4, 'value': '5', 'date': '2026-02-16', 'subject_name': 'Математика'});
+        final mark2 = Mark.fromMap({
+          'id': 1,
+          'value': '2',
+          'date': '2026-02-16',
+          'subject_name': 'Математика',
+        });
+        final mark3 = Mark.fromMap({
+          'id': 2,
+          'value': '3',
+          'date': '2026-02-16',
+          'subject_name': 'Математика',
+        });
+        final mark4 = Mark.fromMap({
+          'id': 3,
+          'value': '4',
+          'date': '2026-02-16',
+          'subject_name': 'Математика',
+        });
+        final mark5 = Mark.fromMap({
+          'id': 4,
+          'value': '5',
+          'date': '2026-02-16',
+          'subject_name': 'Математика',
+        });
 
         expect(mark2.value, 2);
         expect(mark3.value, 3);
@@ -55,38 +75,59 @@ void main() {
         expect(mark5.value, 5);
       });
 
-      test('throws ArgumentError for invalid value 1', () {
+      test('throws InvalidMarkValueException for invalid value 1', () {
         expect(
-          () => Mark.fromMap({'id': 1, 'value': '1', 'date': '2026-02-16', 'subject_name': 'Математика'}),
-          throwsA(isA<ArgumentError>()),
+          () => Mark.fromMap({
+            'id': 1,
+            'value': '1',
+            'date': '2026-02-16',
+            'subject_name': 'Математика',
+          }),
+          throwsA(isA<InvalidMarkValueException>()),
         );
       });
 
-      test('throws ArgumentError for invalid value 0', () {
+      test('throws InvalidMarkValueException for invalid value 0', () {
         expect(
-          () => Mark.fromMap({'id': 1, 'value': '0', 'date': '2026-02-16', 'subject_name': 'Математика'}),
-          throwsA(isA<ArgumentError>()),
+          () => Mark.fromMap({
+            'id': 1,
+            'value': '0',
+            'date': '2026-02-16',
+            'subject_name': 'Математика',
+          }),
+          throwsA(isA<InvalidMarkValueException>()),
         );
       });
 
-      test('throws ArgumentError for invalid value 6', () {
+      test('throws InvalidMarkValueException for invalid value 6', () {
         expect(
-          () => Mark.fromMap({'id': 1, 'value': '6', 'date': '2026-02-16', 'subject_name': 'Математика'}),
-          throwsA(isA<ArgumentError>()),
+          () => Mark.fromMap({
+            'id': 1,
+            'value': '6',
+            'date': '2026-02-16',
+            'subject_name': 'Математика',
+          }),
+          throwsA(isA<InvalidMarkValueException>()),
         );
       });
 
-      test('throws ArgumentError for invalid negative value', () {
+      test('throws InvalidMarkValueException for invalid negative value', () {
         expect(
-          () => Mark.fromMap({'id': 1, 'value': '-1', 'date': '2026-02-16', 'subject_name': 'Математика'}),
-          throwsA(isA<ArgumentError>()),
+          () => Mark.fromMap({
+            'id': 1,
+            'value': '-1',
+            'date': '2026-02-16',
+            'subject_name': 'Математика',
+          }),
+          throwsA(isA<InvalidMarkValueException>()),
         );
       });
     });
 
     group('fromJson', () {
       test('creates Mark from valid JSON string', () {
-        final json = '{"id": 12345, "value": "5", "date": "2026-02-20", "subject_name": "Физика"}';
+        final json =
+            '{"id": 12345, "value": "5", "date": "2026-02-20", "subject_name": "Физика"}';
         final mark = Mark.fromJson(json);
 
         expect(mark.id, 12345);
@@ -95,57 +136,101 @@ void main() {
         expect(mark.subjectName, 'Физика');
       });
 
-      test('throws ArgumentError for invalid value in JSON', () {
-        final json = '{"id": 1, "value": "6", "date": "2026-02-16", "subject_name": "Математика"}';
-        expect(() => Mark.fromJson(json), throwsA(isA<ArgumentError>()));
+      test('throws InvalidMarkValueException for invalid value in JSON', () {
+        final json =
+            '{"id": 1, "value": "6", "date": "2026-02-16", "subject_name": "Математика"}';
+        expect(
+          () => Mark.fromJson(json),
+          throwsA(isA<InvalidMarkValueException>()),
+        );
       });
     });
 
     group('constructor validation', () {
       test('creates Mark with valid value 2', () {
-        final mark = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 2);
+        final mark = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 2,
+        );
         expect(mark.value, 2);
       });
 
       test('creates Mark with valid value 3', () {
-        final mark = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 3);
+        final mark = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 3,
+        );
         expect(mark.value, 3);
       });
 
       test('creates Mark with valid value 4', () {
-        final mark = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 4);
+        final mark = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 4,
+        );
         expect(mark.value, 4);
       });
 
       test('creates Mark with valid value 5', () {
-        final mark = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
+        final mark = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
         expect(mark.value, 5);
       });
 
       test('throws AssertionError for invalid value 1', () {
         expect(
-          () => Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 1),
+          () => Mark(
+            id: 1,
+            date: DateTime(2026, 2, 16),
+            subjectName: 'Математика',
+            value: 1,
+          ),
           throwsA(isA<AssertionError>()),
         );
       });
 
       test('throws AssertionError for invalid value 6', () {
         expect(
-          () => Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 6),
+          () => Mark(
+            id: 1,
+            date: DateTime(2026, 2, 16),
+            subjectName: 'Математика',
+            value: 6,
+          ),
           throwsA(isA<AssertionError>()),
         );
       });
 
       test('throws AssertionError for invalid value 0', () {
         expect(
-          () => Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 0),
+          () => Mark(
+            id: 1,
+            date: DateTime(2026, 2, 16),
+            subjectName: 'Математика',
+            value: 0,
+          ),
           throwsA(isA<AssertionError>()),
         );
       });
 
       test('throws AssertionError for invalid negative value', () {
         expect(
-          () => Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: -5),
+          () => Mark(
+            id: 1,
+            date: DateTime(2026, 2, 16),
+            subjectName: 'Математика',
+            value: -5,
+          ),
           throwsA(isA<AssertionError>()),
         );
       });
@@ -244,7 +329,12 @@ void main() {
       });
 
       test('updates value when provided', () {
-        final original = Mark(id: 100, date: DateTime(2026, 1, 1), subjectName: 'Математика', value: 3);
+        final original = Mark(
+          id: 100,
+          date: DateTime(2026, 1, 1),
+          subjectName: 'Математика',
+          value: 3,
+        );
         final copy = original.copyWith(value: 5);
 
         expect(copy.value, 5);
@@ -252,12 +342,25 @@ void main() {
       });
 
       test('throws AssertionError when updating to invalid value', () {
-        final original = Mark(id: 100, date: DateTime(2026, 1, 1), subjectName: 'Математика', value: 5);
-        expect(() => original.copyWith(value: 6), throwsA(isA<AssertionError>()));
+        final original = Mark(
+          id: 100,
+          date: DateTime(2026, 1, 1),
+          subjectName: 'Математика',
+          value: 5,
+        );
+        expect(
+          () => original.copyWith(value: 6),
+          throwsA(isA<AssertionError>()),
+        );
       });
 
       test('updates multiple fields at once', () {
-        final original = Mark(id: 100, date: DateTime(2026, 1, 1), subjectName: 'Математика', value: 3);
+        final original = Mark(
+          id: 100,
+          date: DateTime(2026, 1, 1),
+          subjectName: 'Математика',
+          value: 3,
+        );
         final copy = original.copyWith(
           id: 200,
           date: DateTime(2026, 6, 15),
@@ -274,48 +377,108 @@ void main() {
 
     group('equality', () {
       test('equal marks have same hashCode', () {
-        final m1 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
-        final m2 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
+        final m1 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
+        final m2 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
 
         expect(m1.hashCode, equals(m2.hashCode));
       });
 
       test('different ids make marks unequal', () {
-        final m1 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
-        final m2 = Mark(id: 2, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
+        final m1 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
+        final m2 = Mark(
+          id: 2,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
 
         expect(m1, isNot(equals(m2)));
       });
 
       test('different dates make marks unequal', () {
-        final m1 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
-        final m2 = Mark(id: 1, date: DateTime(2026, 2, 17), subjectName: 'Математика', value: 5);
+        final m1 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
+        final m2 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 17),
+          subjectName: 'Математика',
+          value: 5,
+        );
 
         expect(m1, isNot(equals(m2)));
       });
 
       test('different subjectNames make marks unequal', () {
-        final m1 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
-        final m2 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Физика', value: 5);
+        final m1 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
+        final m2 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Физика',
+          value: 5,
+        );
 
         expect(m1, isNot(equals(m2)));
       });
 
       test('different values make marks unequal', () {
-        final m1 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 4);
-        final m2 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
+        final m1 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 4,
+        );
+        final m2 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
 
         expect(m1, isNot(equals(m2)));
       });
 
       test('identical mark is equal to itself', () {
-        final mark = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
+        final mark = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
 
         expect(mark, equals(mark));
       });
 
       test('mark is not equal to non-Mark object', () {
-        final mark = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
+        final mark = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
 
         expect(mark, isNot(equals('not a mark')));
       });
@@ -323,7 +486,12 @@ void main() {
 
     group('toString', () {
       test('returns formatted string representation', () {
-        final mark = Mark(id: 123, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
+        final mark = Mark(
+          id: 123,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
 
         expect(
           mark.toString(),

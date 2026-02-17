@@ -1,26 +1,28 @@
-/// Base abstract class for school-related objects.
+import 'package:intl/intl.dart' show DateFormat;
+
+/// Formats [DateTime] as yyyy-MM-dd string for JSON serialization.
+String dateTimeToJson(DateTime date) => DateFormat('yyyy-MM-dd').format(date);
+
+/// Parses yyyy-MM-dd date string to [DateTime].
+DateTime dateTimeFromJson(String date) => DateTime.parse(date);
+
+/// Base class for school-related objects.
 ///
-/// Provides common fields shared by [Homework] and [Mark]:
+/// Common fields for [Homework] and [Mark]:
 /// - [id]: Unique identifier
-/// - [date]: Date associated with the object
-/// - [subjectName]: Name of the school subject
+/// - [date]: Associated date
+/// - [subjectName]: Subject name
 abstract class SchoolObject {
-  /// Unique identifier for this object.
+  /// Unique identifier.
   final int id;
 
-  /// The date associated with this school object.
+  /// Associated date.
   final DateTime date;
 
-  /// The name of the subject.
-  ///
-  /// Examples: 'Математика', 'Русский язык', 'Физика'.
+  /// Subject name (e.g., 'Математика', 'Русский язык').
   final String subjectName;
 
-  /// Creates a [SchoolObject].
-  ///
-  /// [id] must be a unique identifier.
-  /// [date] is the associated date.
-  /// [subjectName] is the name of the subject.
+  /// Creates [SchoolObject].
   const SchoolObject({
     required this.id,
     required this.date,

@@ -149,7 +149,7 @@ See more examples in the [`example/`](example/my_school_api_example.dart) folder
 
 ## Status
 
-This package is in early development (version 0.1.0).  
+This package is in early development (version 0.2.0).  
 API changes and instability are expected.
 
 ## License
@@ -162,4 +162,4 @@ PRs are welcome! For major changes, please open an issue first.
 
 ---
 
-**Unofficial client.** Not affiliated with the official "My School" system developers.
+**Unofficial client.** Not affiliated with the official "Моя школа" system developers.

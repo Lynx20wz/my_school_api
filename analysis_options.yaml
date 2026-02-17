@@ -2,19 +2,32 @@ include: package:lints/recommended.yaml
 
 linter:
   rules:
-    prefer_single_quotes: true
-    prefer_const_constructors: true
-    prefer_const_literals_to_create_immutables: true
-    always_declare_return_types: true
-    avoid_empty_else: true
-    prefer_expression_function_bodies: true
+    - prefer_single_quotes
+    - prefer_const_constructors
+    - prefer_const_literals_to_create_immutables
+    - prefer_expression_function_bodies
+    - always_declare_return_types
+    - type_annotate_public_apis
+    - avoid_types_on_closure_parameters
 
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+    - avoid_empty_else
+    - avoid_unnecessary_containers
+    - no_logic_in_create_state
 
-# For more information about the core and recommended set of lints, see
-# https://dart.dev/go/core-lints
+    - use_key_in_widget_constructors
+    - prefer_final_locals
+    - prefer_final_fields
+    - unnecessary_const
+    - unnecessary_new
+    - avoid_unused_constructor_parameters
 
-# For additional information about configuring this file, see
-# https://dart.dev/guides/language/analysis-options
+    - unnecessary_null_checks
+    - use_if_null_to_convert_nulls_to_bools
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  errors:
+    missing_required_param: error
+    invalid_annotation_target: error

@@ -36,7 +36,8 @@ void main() {
 
     group('fromJson', () {
       test('creates Attachment from valid JSON string', () {
-        final json = '{"url": "https://example.com/img.png", "title": "Изображение"}';
+        final json =
+            '{"url": "https://example.com/img.png", "title": "Изображение"}';
         final attachment = Attachment.fromJson(json);
 
         expect(attachment.url, 'https://example.com/img.png');

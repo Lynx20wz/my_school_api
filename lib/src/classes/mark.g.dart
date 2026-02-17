@@ -8,14 +8,14 @@ part of 'mark.dart';
 
 Mark _$MarkFromJson(Map<String, dynamic> json) => Mark(
   id: (json['id'] as num).toInt(),
-  date: _dateTimeFromJson(json['date'] as String),
+  date: DateTime.parse(json['date'] as String),
   subjectName: json['subject_name'] as String,
   value: _parseStringToInt(json['value']),
 );
 
 Map<String, dynamic> _$MarkToJson(Mark instance) => <String, dynamic>{
   'id': instance.id,
-  'date': _dateTimeToIso8601String(instance.date),
+  'date': instance.date.toIso8601String(),
   'subject_name': instance.subjectName,
   'value': instance.value,
 };

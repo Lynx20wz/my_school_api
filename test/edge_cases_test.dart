@@ -41,10 +41,7 @@ void main() {
           'is_done': false,
         });
 
-        expect(
-          homework.description,
-          contains('Специальные символы'),
-        );
+        expect(homework.description, contains('Специальные символы'));
       });
 
       test('handles null is_done as false', () {
@@ -121,7 +118,7 @@ void main() {
         expect(mark.value, 4);
       });
 
-      test('throws ArgumentError for value 1', () {
+      test('throws InvalidMarkValueException for value 1', () {
         expect(
           () => Mark.fromMap({
             'id': 1,
@@ -129,11 +126,11 @@ void main() {
             'date': '2026-02-16',
             'subject_name': 'Математика',
           }),
-          throwsA(isA<ArgumentError>()),
+          throwsA(isA<InvalidMarkValueException>()),
         );
       });
 
-      test('throws ArgumentError for value 6', () {
+      test('throws InvalidMarkValueException for value 6', () {
         expect(
           () => Mark.fromMap({
             'id': 1,
@@ -141,7 +138,7 @@ void main() {
             'date': '2026-02-16',
             'subject_name': 'Математика',
           }),
-          throwsA(isA<ArgumentError>()),
+          throwsA(isA<InvalidMarkValueException>()),
         );
       });
 
@@ -153,10 +150,7 @@ void main() {
           'subject_name': 'Основы религиозных культур и светской этики',
         });
 
-        expect(
-          mark.subjectName,
-          'Основы религиозных культур и светской этики',
-        );
+        expect(mark.subjectName, 'Основы религиозных культур и светской этики');
       });
 
       test('handles date with timezone', () {
@@ -202,10 +196,7 @@ void main() {
           'title': 'Файл',
         });
 
-        expect(
-          attachment.url,
-          contains('%20'),
-        );
+        expect(attachment.url, contains('%20'));
       });
 
       test('handles very long URL', () {
@@ -223,7 +214,7 @@ void main() {
       test('Homework round-trip preserves all fields', () {
         final original = Homework(
           id: 999,
-          date: DateTime(2026, 12, 31, 23, 59, 59),
+          date: DateTime(2026, 12, 31),
           subjectName: 'Предмет с эмодзи 📚',
           description: 'Задание с эмодзи ✏️📝',
           attachments: [],
@@ -244,7 +235,7 @@ void main() {
       test('Mark round-trip preserves all fields', () {
         final original = Mark(
           id: 888,
-          date: DateTime(2026, 6, 15, 12, 30, 0),
+          date: DateTime(2026, 6, 15),
           subjectName: 'Математика',
           value: 5,
         );
@@ -293,15 +284,31 @@ void main() {
       });
 
       test('same hashCode for equal Mark objects', () {
-        final m1 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
-        final m2 = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
+        final m1 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
+        final m2 = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
+        );
 
         expect(m1.hashCode, equals(m2.hashCode));
       });
 
       test('same hashCode for equal Attachment objects', () {
-        final a1 = const Attachment(url: 'https://example.com/f.pdf', title: 'Файл');
-        final a2 = const Attachment(url: 'https://example.com/f.pdf', title: 'Файл');
+        final a1 = const Attachment(
+          url: 'https://example.com/f.pdf',
+          title: 'Файл',
+        );
+        final a2 = const Attachment(
+          url: 'https://example.com/f.pdf',
+          title: 'Файл',
+        );
 
         expect(a1.hashCode, equals(a2.hashCode));
       });
@@ -318,11 +325,7 @@ void main() {
           isDone: false,
         );
 
-        final copy = original.copyWith(
-          id: 2,
-          date: null,
-          subjectName: null,
-        );
+        final copy = original.copyWith(id: 2, date: null, subjectName: null);
 
         expect(copy.id, 2);
         expect(copy.date, original.date);
@@ -330,13 +333,14 @@ void main() {
       });
 
       test('Mark.copyWith with null values uses original', () {
-        final original = Mark(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', value: 5);
-
-        final copy = original.copyWith(
-          id: 2,
-          date: null,
-          subjectName: null,
+        final original = Mark(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          value: 5,
         );
+
+        final copy = original.copyWith(id: 2, date: null, subjectName: null);
 
         expect(copy.id, 2);
         expect(copy.date, original.date);

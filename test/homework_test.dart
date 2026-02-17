@@ -68,7 +68,7 @@ void main() {
           'homework_id': 44444,
           'homework': 'посмотреть видео',
           'materials': [
-            {'url': 'https://example.com/video.mp4', 'title': 'Видео урока'}
+            {'url': 'https://example.com/video.mp4', 'title': 'Видео урока'},
           ],
           'date': '2026-02-20',
           'subject_name': 'Физика',
@@ -107,8 +107,8 @@ void main() {
           'materials': [
             {
               'url': 'https://myschool.mosreg.ru/cdz/123',
-              'title': 'ЦДЗ (Цифровое Домашнее Задание)'
-            }
+              'title': 'ЦДЗ (Цифровое Домашнее Задание)',
+            },
           ],
           'date': '2026-02-22',
           'subject_name': 'Английский язык',
@@ -171,7 +171,10 @@ void main() {
           subjectName: 'Биология',
           description: 'лабораторная работа',
           attachments: [
-            const Attachment(url: 'https://example.com/lab.pdf', title: 'Лабораторная'),
+            const Attachment(
+              url: 'https://example.com/lab.pdf',
+              title: 'Лабораторная',
+            ),
           ],
           isDone: true,
         );
@@ -259,7 +262,10 @@ void main() {
 
       test('updates attachments when provided', () {
         final newAttachments = [
-          const Attachment(url: 'https://example.com/new.pdf', title: 'Новый файл'),
+          const Attachment(
+            url: 'https://example.com/new.pdf',
+            title: 'Новый файл',
+          ),
         ];
         final copy = original.copyWith(attachments: newAttachments);
 
@@ -305,47 +311,105 @@ void main() {
       });
 
       test('different ids make homework unequal', () {
-        final h1 = Homework(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание', attachments: []);
-        final h2 = Homework(id: 2, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание', attachments: []);
+        final h1 = Homework(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание',
+          attachments: [],
+        );
+        final h2 = Homework(
+          id: 2,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание',
+          attachments: [],
+        );
 
         expect(h1, isNot(equals(h2)));
       });
 
       test('different descriptions make homework unequal', () {
-        final h1 = Homework(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание 1', attachments: []);
-        final h2 = Homework(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание 2', attachments: []);
+        final h1 = Homework(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание 1',
+          attachments: [],
+        );
+        final h2 = Homework(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание 2',
+          attachments: [],
+        );
 
         expect(h1, isNot(equals(h2)));
       });
 
       test('different isDone make homework unequal', () {
-        final h1 = Homework(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание', attachments: [], isDone: false);
-        final h2 = Homework(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание', attachments: [], isDone: true);
-
-        expect(h1, isNot(equals(h2)));
-      });
-
-      test('different attachments make homework unequal', () {
-        final h1 = Homework(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание', attachments: []);
+        final h1 = Homework(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание',
+          attachments: [],
+          isDone: false,
+        );
         final h2 = Homework(
           id: 1,
           date: DateTime(2026, 2, 16),
           subjectName: 'Математика',
           description: 'Задание',
-          attachments: [const Attachment(url: 'https://example.com/f.pdf', title: 'Файл')],
+          attachments: [],
+          isDone: true,
+        );
+
+        expect(h1, isNot(equals(h2)));
+      });
+
+      test('different attachments make homework unequal', () {
+        final h1 = Homework(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание',
+          attachments: [],
+        );
+        final h2 = Homework(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание',
+          attachments: [
+            const Attachment(url: 'https://example.com/f.pdf', title: 'Файл'),
+          ],
         );
 
         expect(h1, isNot(equals(h2)));
       });
 
       test('identical homework is equal to itself', () {
-        final homework = Homework(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание', attachments: []);
+        final homework = Homework(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание',
+          attachments: [],
+        );
 
         expect(homework, equals(homework));
       });
 
       test('homework is not equal to non-Homework object', () {
-        final homework = Homework(id: 1, date: DateTime(2026, 2, 16), subjectName: 'Математика', description: 'Задание', attachments: []);
+        final homework = Homework(
+          id: 1,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Математика',
+          description: 'Задание',
+          attachments: [],
+        );
 
         expect(homework, isNot(equals('not homework')));
       });
