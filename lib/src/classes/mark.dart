@@ -78,6 +78,7 @@ class Mark extends SchoolObject {
       );
 
   String toJson() => jsonEncode(toMap());
+  
   Map<String, dynamic> toMap() => _$MarkToJson(this);
 
   @override

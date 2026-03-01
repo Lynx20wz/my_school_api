@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '_school_object.dart';
 import 'attachment.dart';
+
 part 'homework.g.dart';
 
 /// Represents a homework assignment for a specific subject.
@@ -11,6 +12,7 @@ part 'homework.g.dart';
 /// Includes description, optional attachments, and completion status.
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Homework extends SchoolObject {
+  /// Unique identifier.
   @JsonKey(name: 'homework_id')
   @override
   final int id;

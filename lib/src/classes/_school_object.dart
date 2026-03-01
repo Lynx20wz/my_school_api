@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:json_annotation/json_annotation.dart' show JsonKey;
 
 /// Formats [DateTime] as yyyy-MM-dd string for JSON serialization.
 String dateTimeToJson(DateTime date) => DateFormat('yyyy-MM-dd').format(date);
@@ -6,23 +7,21 @@ String dateTimeToJson(DateTime date) => DateFormat('yyyy-MM-dd').format(date);
 /// Parses yyyy-MM-dd date string to [DateTime].
 DateTime dateTimeFromJson(String date) => DateTime.parse(date);
 
-/// Base class for school-related objects.
+/// Abstract interface for school-related objects.
 ///
 /// Common fields for [Homework] and [Mark]:
 /// - [id]: Unique identifier
 /// - [date]: Associated date
 /// - [subjectName]: Subject name
 abstract class SchoolObject {
-  /// Unique identifier.
   final int id;
 
-  /// Associated date.
+  @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
   final DateTime date;
 
-  /// Subject name (e.g., 'Математика', 'Русский язык').
+  @JsonKey(name: 'subject_name')
   final String subjectName;
 
-  /// Creates [SchoolObject].
   const SchoolObject({
     required this.id,
     required this.date,

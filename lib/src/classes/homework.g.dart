@@ -7,7 +7,7 @@ part of 'homework.dart';
 // **************************************************************************
 
 Homework _$HomeworkFromJson(Map<String, dynamic> json) => Homework(
-  date: DateTime.parse(json['date'] as String),
+  date: dateTimeFromJson(json['date'] as String),
   subjectName: json['subject_name'] as String,
   id: (json['homework_id'] as num).toInt(),
   description: json['homework'] as String,
@@ -16,7 +16,7 @@ Homework _$HomeworkFromJson(Map<String, dynamic> json) => Homework(
 );
 
 Map<String, dynamic> _$HomeworkToJson(Homework instance) => <String, dynamic>{
-  'date': instance.date.toIso8601String(),
+  'date': dateTimeToJson(instance.date),
   'subject_name': instance.subjectName,
   'homework_id': instance.id,
   'homework': instance.description,

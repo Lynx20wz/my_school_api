@@ -9,17 +9,11 @@ part 'attachment.g.dart';
 /// Attachments are files or resources (e.g., "ЦДЗ (Цифровое Домашнее Задание)").
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Attachment {
-  final String url;
+  final String? url;
   final String title;
 
   const Attachment({required this.url, required this.title});
 
-  /// Creates [Attachment] from JSON string.
-  ///
-  /// Example:
-  /// ```dart
-  /// final attachment = Attachment.fromJson('{"url": "https://...", "title": "Homework"}');
-  /// ```
   factory Attachment.fromJson(String source) =>
       _$AttachmentFromJson(jsonDecode(source));
 

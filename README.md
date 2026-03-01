@@ -3,7 +3,7 @@
 Dart library for working with the "My School" (Моя Школа) API system (Moscow Region).  
 Allows programmatic access to student homework assignments and marks.
 
-> ⚠️ **Disclaimer:** This is an unofficial package. Use at your own risk.  
+> **Disclaimer:** This is an unofficial package. Use at your own risk.  
 > A valid authentication token from `authedu.mosreg.ru` is required.
 
 ## Features
@@ -48,11 +48,8 @@ Alternatively, use an existing token from the mobile app or other sources.
 import 'package:my_school_api/my_school_api.dart';
 
 void main() async {
-  // Initialize with token (student_id will be auto-detected)
+  // Initialize with token
   final api = await MySchoolApi.init('YOUR_TOKEN');
-  
-  // Or specify a particular student_id
-  // final api = await MySchoolApi.init('YOUR_TOKEN', studentId: 12345);
 }
 ```
 
@@ -125,11 +122,11 @@ final weekHomework = await api.getHomework(
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `String` | File name |
-| `url` | `String` | File URL |
+| `url` | `String?` | File URL |
 
 ## Examples
 
-See more examples in the [`example/`](example/my_school_api_example.dart) folder.
+See more examples in the [example file](example/my_school_api_example.dart).
 
 ## Requirements
 
@@ -140,16 +137,17 @@ See more examples in the [`example/`](example/my_school_api_example.dart) folder
 - `http` — HTTP requests
 - `intl` — date formatting
 - `path` — path manipulation
+- `json_annotation` - json serialization
 
 ## Limitations
 
 - `markHomeworkAsDone()` method is not yet implemented
-- Tokens have limited lifetime
+- Tokens have limited lifetime (about 2 weeks)
 - API may change without notice
 
 ## Status
 
-This package is in early development (version 0.2.0).  
+This package is in early development.  
 API changes and instability are expected.
 
 ## License
