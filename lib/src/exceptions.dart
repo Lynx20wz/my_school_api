@@ -90,7 +90,7 @@ class InvalidDateRangeException extends MySchoolApiException {
 
   @override
   String toString() =>
-      'InvalidDateRangeException: $message (from: $from, to: $to)';
+      'InvalidDateRangeException (from: $from, to: $to): $message';
 }
 
 /// Exception thrown when an invalid mark value is provided.
@@ -103,5 +103,5 @@ class InvalidMarkValueException extends MySchoolApiException {
   const InvalidMarkValueException(super.message, {required this.mark});
 
   @override
-  String toString() => 'InvalidMarkValueException: $message (mark: $mark)';
+  String toString() => 'InvalidMarkValueException (mark: $mark): $message';
 }
