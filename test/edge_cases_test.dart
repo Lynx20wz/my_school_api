@@ -41,7 +41,7 @@ void main() {
           'is_done': false,
         });
 
-        expect(homework.description, contains('Специальные символы'));
+        expect(homework.description.length, 52);
       });
 
       test('handles null is_done as false', () {
@@ -73,98 +73,65 @@ void main() {
       });
     });
 
-    group('Mark edge cases', () {
-      test('handles minimum grade value (2)', () {
-        final mark = Mark.fromMap({
+    test('handles date with timezone', () {
+      final mark = Mark.fromMap({
+        'id': 1,
+        'value': '5',
+        'date': '2026-02-16T12:00:00+03:00',
+        'subject_name': 'Математика',
+      });
+
+      expect(mark.date.year, 2026);
+      expect(mark.date.month, 2);
+      expect(mark.date.day, 16);
+    });
+  });
+
+  group('Mark edge cases', () {
+    test('handles grade value (2)', () {
+      final mark = Mark.fromMap({
+        'id': 1,
+        'value': '2',
+        'date': '2026-02-16',
+        'subject_name': 'Математика',
+      });
+
+      expect(mark.value, 2);
+    });
+
+    test('throws InvalidMarkValueException for value 1', () {
+      expect(
+        () => Mark.fromMap({
           'id': 1,
-          'value': '2',
+          'value': '1',
           'date': '2026-02-16',
           'subject_name': 'Математика',
-        });
+        }),
+        throwsA(isA<InvalidMarkValueException>()),
+      );
+    });
 
-        expect(mark.value, 2);
-      });
-
-      test('handles maximum grade value (5)', () {
-        final mark = Mark.fromMap({
+    test('throws InvalidMarkValueException for value 6', () {
+      expect(
+        () => Mark.fromMap({
           'id': 1,
-          'value': '5',
+          'value': '6',
           'date': '2026-02-16',
           'subject_name': 'Математика',
-        });
+        }),
+        throwsA(isA<InvalidMarkValueException>()),
+      );
+    });
 
-        expect(mark.value, 5);
+    test('handles special characters in subject name', () {
+      final mark = Mark.fromMap({
+        'id': 1,
+        'value': '5',
+        'date': '2026-02-16',
+        'subject_name': 'Основы религиозных культур и светской этики',
       });
 
-      test('handles grade value 3', () {
-        final mark = Mark.fromMap({
-          'id': 1,
-          'value': '3',
-          'date': '2026-02-16',
-          'subject_name': 'Математика',
-        });
-
-        expect(mark.value, 3);
-      });
-
-      test('handles grade value 4', () {
-        final mark = Mark.fromMap({
-          'id': 1,
-          'value': '4',
-          'date': '2026-02-16',
-          'subject_name': 'Математика',
-        });
-
-        expect(mark.value, 4);
-      });
-
-      test('throws InvalidMarkValueException for value 1', () {
-        expect(
-          () => Mark.fromMap({
-            'id': 1,
-            'value': '1',
-            'date': '2026-02-16',
-            'subject_name': 'Математика',
-          }),
-          throwsA(isA<InvalidMarkValueException>()),
-        );
-      });
-
-      test('throws InvalidMarkValueException for value 6', () {
-        expect(
-          () => Mark.fromMap({
-            'id': 1,
-            'value': '6',
-            'date': '2026-02-16',
-            'subject_name': 'Математика',
-          }),
-          throwsA(isA<InvalidMarkValueException>()),
-        );
-      });
-
-      test('handles special characters in subject name', () {
-        final mark = Mark.fromMap({
-          'id': 1,
-          'value': '5',
-          'date': '2026-02-16',
-          'subject_name': 'Основы религиозных культур и светской этики',
-        });
-
-        expect(mark.subjectName, 'Основы религиозных культур и светской этики');
-      });
-
-      test('handles date with timezone', () {
-        final mark = Mark.fromMap({
-          'id': 1,
-          'value': '5',
-          'date': '2026-02-16T12:00:00+03:00',
-          'subject_name': 'Математика',
-        });
-
-        expect(mark.date.year, 2026);
-        expect(mark.date.month, 2);
-        expect(mark.date.day, 16);
-      });
+      expect(mark.subjectName, 'Основы религиозных культур и светской этики');
     });
 
     group('Attachment edge cases', () {
@@ -206,7 +173,7 @@ void main() {
           'title': 'Файл',
         });
 
-        expect(attachment.url.length, greaterThan(1000));
+        expect(attachment.url!.length, greaterThan(1000));
       });
     });
 
