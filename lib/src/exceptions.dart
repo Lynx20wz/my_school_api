@@ -1,3 +1,6 @@
+import 'package:my_school_api/src/classes/_school_object.dart'
+    show dateTimeToJson;
+
 /// Base exception for all My School API errors.
 ///
 /// All exceptions thrown by [MySchoolApi] extend this class.
@@ -90,7 +93,7 @@ class InvalidDateRangeException extends MySchoolApiException {
 
   @override
   String toString() =>
-      'InvalidDateRangeException (from: $from, to: $to): $message';
+      'InvalidDateRangeException (from: ${dateTimeToJson(from)}, to: ${dateTimeToJson(to)}): $message';
 }
 
 /// Exception thrown when an invalid mark value is provided.

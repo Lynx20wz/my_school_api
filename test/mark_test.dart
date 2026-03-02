@@ -122,27 +122,23 @@ void main() {
           throwsA(isA<InvalidMarkValueException>()),
         );
       });
-    });
 
-    group('fromJson', () {
-      test('creates Mark from valid JSON string', () {
-        final json =
-            '{"id": 12345, "value": "5", "date": "2026-02-20", "subject_name": "Физика"}';
-        final mark = Mark.fromJson(json);
-
-        expect(mark.id, 12345);
-        expect(mark.value, 5);
-        expect(mark.date, DateTime(2026, 2, 20));
-        expect(mark.subjectName, 'Физика');
-      });
-
-      test('throws InvalidMarkValueException for invalid value in JSON', () {
-        final json =
-            '{"id": 1, "value": "6", "date": "2026-02-16", "subject_name": "Математика"}';
-        expect(
-          () => Mark.fromJson(json),
-          throwsA(isA<InvalidMarkValueException>()),
+      test('to map', () {
+        final mark = Mark(
+          id: 98765,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Русский язык',
+          value: 5,
         );
+
+        final map = mark.toMap();
+
+        expect(map, {
+          'id': 98765,
+          'value': 5,
+          'date': '2026-02-16',
+          'subject_name': 'Русский язык',
+        });
       });
     });
 
@@ -237,22 +233,6 @@ void main() {
     });
 
     group('toMap', () {
-      test('converts Mark to map', () {
-        final mark = Mark(
-          id: 99999,
-          date: DateTime(2026, 5, 15),
-          subjectName: 'Химия',
-          value: 5,
-        );
-
-        final map = mark.toMap();
-
-        expect(map['id'], 99999);
-        expect(map['subject_name'], 'Химия');
-        expect(map['value'], 5);
-        expect(map['date'], isA<String>());
-      });
-
       test('toMap produces valid ISO 8601 date', () {
         final mark = Mark(
           id: 1,
@@ -266,8 +246,8 @@ void main() {
       });
     });
 
-    group('toJson', () {
-      test('converts Mark to JSON string', () {
+    group('JSON', () {
+      test('to JSON', () {
         final mark = Mark(
           id: 77777,
           date: DateTime(2026, 6, 1),
@@ -282,6 +262,26 @@ void main() {
         expect(decoded.date, mark.date);
         expect(decoded.subjectName, mark.subjectName);
         expect(decoded.value, mark.value);
+      });
+
+      test('from valid JSON string', () {
+        final json =
+            '{"id": 12345, "value": "5", "date": "2026-02-20", "subject_name": "Физика"}';
+        final mark = Mark.fromJson(json);
+
+        expect(mark.id, 12345);
+        expect(mark.value, 5);
+        expect(mark.date, DateTime(2026, 2, 20));
+        expect(mark.subjectName, 'Физика');
+      });
+
+      test('throws InvalidMarkValueException for invalid value in JSON', () {
+        final json =
+            '{"id": 1, "value": "6", "date": "2026-02-16", "subject_name": "Математика"}';
+        expect(
+          () => Mark.fromJson(json),
+          throwsA(isA<InvalidMarkValueException>()),
+        );
       });
     });
 

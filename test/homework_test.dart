@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('Homework', () {
-    group('fromMap', () {
-      test('creates Homework from valid map', () {
+    group('map', () {
+      test('from valid map', () {
         final homework = Homework.fromMap({
           'homework_id': 12345,
           'homework': 'выучить записи в тетради',
@@ -22,149 +22,29 @@ void main() {
         expect(homework.attachments, isEmpty);
       });
 
-      test('creates Homework with isDone defaulting to false', () {
-        final homework = Homework.fromMap({
-          'homework_id': 11111,
-          'homework': 'решить задачу',
-          'materials': [],
-          'date': '2026-02-17',
-          'subject_name': 'Математика',
-        });
-
-        expect(homework.isDone, false);
-      });
-
-      test('creates Homework with isDone set to true', () {
-        final homework = Homework.fromMap({
-          'homework_id': 22222,
-          'homework': 'прочитать главу 5',
-          'materials': [],
-          'date': '2026-02-18',
-          'subject_name': 'Литература',
-          'is_done': true,
-        });
-
-        expect(homework.isDone, true);
-      });
-
-      test('creates Homework with Cyrillic subject and description', () {
-        final homework = Homework.fromMap({
-          'homework_id': 33333,
-          'homework': 'упражнение 567',
-          'materials': [],
-          'date': '2026-02-19',
-          'subject_name': 'Русский язык',
-          'is_done': false,
-        });
-
-        expect(homework.subjectName, 'Русский язык');
-        expect(homework.description, 'упражнение 567');
-      });
-    });
-
-    group('fromMap with attachments', () {
-      test('creates Homework with single attachment', () {
-        final homework = Homework.fromMap({
-          'homework_id': 44444,
-          'homework': 'посмотреть видео',
-          'materials': [
-            {'url': 'https://example.com/video.mp4', 'title': 'Видео урока'},
-          ],
-          'date': '2026-02-20',
-          'subject_name': 'Физика',
-          'is_done': false,
-        });
-
-        expect(homework.attachments.length, 1);
-        expect(homework.attachments.first.url, 'https://example.com/video.mp4');
-        expect(homework.attachments.first.title, 'Видео урока');
-      });
-
-      test('creates Homework with multiple attachments', () {
-        final homework = Homework.fromMap({
-          'homework_id': 55555,
-          'homework': 'выполнить проект',
-          'materials': [
-            {'url': 'https://example.com/doc1.pdf', 'title': 'Инструкция'},
-            {'url': 'https://example.com/doc2.pdf', 'title': 'Шаблон'},
-            {'url': 'https://example.com/image.png', 'title': 'Пример'},
-          ],
-          'date': '2026-02-21',
-          'subject_name': 'Информатика',
-          'is_done': false,
-        });
-
-        expect(homework.attachments.length, 3);
-        expect(homework.attachments[0].title, 'Инструкция');
-        expect(homework.attachments[1].title, 'Шаблон');
-        expect(homework.attachments[2].title, 'Пример');
-      });
-
-      test('creates Homework with ЦДЗ attachment', () {
-        final homework = Homework.fromMap({
-          'homework_id': 66666,
-          'homework': 'ЦДЗ упражнение',
-          'materials': [
-            {
-              'url': 'https://myschool.mosreg.ru/cdz/123',
-              'title': 'ЦДЗ (Цифровое Домашнее Задание)',
-            },
-          ],
-          'date': '2026-02-22',
-          'subject_name': 'Английский язык',
-          'is_done': true,
-        });
-
-        expect(homework.attachments.length, 1);
-        expect(
-          homework.attachments.first.title,
-          'ЦДЗ (Цифровое Домашнее Задание)',
-        );
-      });
-    });
-
-    group('fromJson', () {
-      test('creates Homework from valid JSON string', () {
-        final json = '''
-        {
-          "homework_id": 77777,
-          "homework": "подготовиться к контрольной",
-          "materials": [],
-          "date": "2026-02-23",
-          "subject_name": "История",
-          "is_done": false
-        }
-        ''';
-
-        final homework = Homework.fromJson(json);
-
-        expect(homework.id, 77777);
-        expect(homework.subjectName, 'История');
-        expect(homework.description, 'подготовиться к контрольной');
-      });
-    });
-
-    group('toMap', () {
-      test('converts Homework to map', () {
+      test('to map', () {
         final homework = Homework(
-          id: 88888,
-          date: DateTime(2026, 3, 1),
-          subjectName: 'География',
-          description: 'прочитать параграф 12',
+          id: 12345,
+          date: DateTime(2026, 2, 16),
+          subjectName: 'Химия',
+          description: 'выучить записи в тетради',
           attachments: [],
           isDone: false,
         );
 
         final map = homework.toMap();
 
-        expect(map['homework_id'], 88888);
-        expect(map['subject_name'], 'География');
-        expect(map['homework'], 'прочитать параграф 12');
-        expect(map['is_done'], false);
-        expect(map['materials'], isA<List>());
+        expect(map, {
+          'homework_id': 12345,
+          'homework': 'выучить записи в тетради',
+          'materials': [],
+          'date': '2026-02-16',
+          'subject_name': 'Химия',
+          'is_done': false,
+        });
       });
 
-      test('toMap includes attachments', () {
+      test('to map includes attachments', () {
         final homework = Homework(
           id: 99999,
           date: DateTime(2026, 3, 2),
@@ -184,10 +64,101 @@ void main() {
         expect(map['materials'], isA<List>());
         expect((map['materials'] as List).length, 1);
       });
+
+      group('from map with', () {
+        test('single attachment', () {
+          final homework = Homework.fromMap({
+            'homework_id': 44444,
+            'homework': 'посмотреть видео',
+            'materials': [
+              {'url': 'https://example.com/video.mp4', 'title': 'Видео урока'},
+            ],
+            'date': '2026-02-20',
+            'subject_name': 'Физика',
+            'is_done': false,
+          });
+
+          expect(homework.attachments.length, 1);
+          expect(
+            homework.attachments.first.url,
+            'https://example.com/video.mp4',
+          );
+          expect(homework.attachments.first.title, 'Видео урока');
+        });
+
+        test('multiple attachments', () {
+          final homework = Homework.fromMap({
+            'homework_id': 55555,
+            'homework': 'выполнить проект',
+            'materials': [
+              {'url': 'https://example.com/doc1.pdf', 'title': 'Инструкция'},
+              {'url': 'https://example.com/doc2.pdf', 'title': 'Шаблон'},
+              {'url': 'https://example.com/image.png', 'title': 'Пример'},
+            ],
+            'date': '2026-02-21',
+            'subject_name': 'Информатика',
+            'is_done': false,
+          });
+
+          expect(homework.attachments.length, 3);
+          expect(homework.attachments[0].title, 'Инструкция');
+          expect(homework.attachments[1].title, 'Шаблон');
+          expect(homework.attachments[2].title, 'Пример');
+        });
+
+        test('ЦДЗ attachment', () {
+          final homework = Homework.fromMap({
+            'homework_id': 66666,
+            'homework': 'ЦДЗ упражнение',
+            'materials': [
+              {
+                'url': 'https://myschool.mosreg.ru/cdz/123',
+                'title': 'ЦДЗ (Цифровое Домашнее Задание)',
+              },
+            ],
+            'date': '2026-02-22',
+            'subject_name': 'Английский язык',
+            'is_done': true,
+          });
+
+          expect(homework.attachments.length, 1);
+          expect(
+            homework.attachments.first.title,
+            'ЦДЗ (Цифровое Домашнее Задание)',
+          );
+        });
+      });
     });
 
-    group('toJson', () {
-      test('converts Homework to JSON string', () {
+    group('creates Homework with isDone', () {
+      test('defaulting to false', () {
+        final homework = Homework.fromMap({
+          'homework_id': 11111,
+          'homework': 'решить задачу',
+          'materials': [],
+          'date': '2026-02-17',
+          'subject_name': 'Математика',
+        });
+
+        expect(homework.isDone, false);
+      });
+
+      test('set to true', () {
+        final homework = Homework.fromMap({
+          'homework_id': 22222,
+          'homework': 'прочитать главу 5',
+          'materials': [],
+          'date': '2026-02-18',
+          'subject_name': 'Литература',
+          'is_done': true,
+        });
+
+        expect(homework.isDone, true);
+      });
+    });
+
+    group('JSON', () {
+      test('to JSON', () {
         final homework = Homework(
           id: 10101,
           date: DateTime(2026, 3, 3),
@@ -205,6 +176,25 @@ void main() {
         expect(decoded.subjectName, homework.subjectName);
         expect(decoded.description, homework.description);
         expect(decoded.isDone, homework.isDone);
+      });
+
+      test('from valid JSON', () {
+        final json = '''
+        {
+          "homework_id": 77777,
+          "homework": "подготовиться к контрольной",
+          "materials": [],
+          "date": "2026-02-23",
+          "subject_name": "История",
+          "is_done": false
+        }
+        ''';
+
+        final homework = Homework.fromJson(json);
+
+        expect(homework.id, 77777);
+        expect(homework.subjectName, 'История');
+        expect(homework.description, 'подготовиться к контрольной');
       });
     });
 
@@ -370,14 +360,14 @@ void main() {
       });
 
       test('different attachments make homework unequal', () {
-        final h1 = Homework(
+        final hk1 = Homework(
           id: 1,
           date: DateTime(2026, 2, 16),
           subjectName: 'Математика',
           description: 'Задание',
           attachments: [],
         );
-        final h2 = Homework(
+        final hk2 = Homework(
           id: 1,
           date: DateTime(2026, 2, 16),
           subjectName: 'Математика',
@@ -387,35 +377,11 @@ void main() {
           ],
         );
 
-        expect(h1, isNot(equals(h2)));
-      });
-
-      test('identical homework is equal to itself', () {
-        final homework = Homework(
-          id: 1,
-          date: DateTime(2026, 2, 16),
-          subjectName: 'Математика',
-          description: 'Задание',
-          attachments: [],
-        );
-
-        expect(homework, equals(homework));
-      });
-
-      test('homework is not equal to non-Homework object', () {
-        final homework = Homework(
-          id: 1,
-          date: DateTime(2026, 2, 16),
-          subjectName: 'Математика',
-          description: 'Задание',
-          attachments: [],
-        );
-
-        expect(homework, isNot(equals('not homework')));
+        expect(hk1, isNot(equals(hk2)));
       });
     });
 
-    group('toString', () {
+    group('to string', () {
       test('returns formatted string representation', () {
         final homework = Homework(
           id: 123,

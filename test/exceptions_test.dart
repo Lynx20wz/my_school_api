@@ -132,7 +132,9 @@ void main() {
       expect(exception.to, equals(to));
       expect(
         exception.toString(),
-        contains('InvalidDateRangeException: from must be before to'),
+        contains(
+          'InvalidDateRangeException (from: 2026-02-20, to: 2026-02-10): from must be before to',
+        ),
       );
       expect(exception.toString(), contains('2026-02-20'));
       expect(exception.toString(), contains('2026-02-10'));

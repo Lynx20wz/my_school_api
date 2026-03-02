@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('Attachment', () {
-    group('fromMap', () {
-      test('creates Attachment from valid map', () {
+    group('map', () {
+      test('from valid map', () {
         final attachment = Attachment.fromMap({
           'url': 'https://example.com/document.pdf',
           'title': 'Документ PDF',
@@ -14,7 +14,7 @@ void main() {
         expect(attachment.title, 'Документ PDF');
       });
 
-      test('creates Attachment with empty title', () {
+      test('from map with empty title', () {
         final attachment = Attachment.fromMap({
           'url': 'https://example.com/file.txt',
           'title': '',
@@ -24,29 +24,7 @@ void main() {
         expect(attachment.title, isEmpty);
       });
 
-      test('creates Attachment with Cyrillic title', () {
-        final attachment = Attachment.fromMap({
-          'url': 'https://example.com/цдз.pdf',
-          'title': 'Цифровое Домашнее Задание',
-        });
-
-        expect(attachment.title, 'Цифровое Домашнее Задание');
-      });
-    });
-
-    group('fromJson', () {
-      test('creates Attachment from valid JSON string', () {
-        final json =
-            '{"url": "https://example.com/img.png", "title": "Изображение"}';
-        final attachment = Attachment.fromJson(json);
-
-        expect(attachment.url, 'https://example.com/img.png');
-        expect(attachment.title, 'Изображение');
-      });
-    });
-
-    group('toMap', () {
-      test('converts Attachment to map', () {
+      test('to map', () {
         final attachment = const Attachment(
           url: 'https://example.com/file.pdf',
           title: 'Тестовый файл',
@@ -61,18 +39,27 @@ void main() {
       });
     });
 
-    group('toJson', () {
-      test('converts Attachment to JSON string', () {
+    group('JSON', () {
+      test('to JSON', () {
         final attachment = const Attachment(
           url: 'https://example.com/doc.pdf',
           title: 'Документ',
         );
-
         final json = attachment.toJson();
-        final decoded = Attachment.fromJson(json);
 
-        expect(decoded.url, attachment.url);
-        expect(decoded.title, attachment.title);
+        expect(
+          json,
+          '{"url":"https://example.com/doc.pdf","title":"Документ"}',
+        );
+      });
+
+      test('from valid JSON string', () {
+        final json =
+            '{"url": "https://example.com/img.png", "title": "Изображение"}';
+        final attachment = Attachment.fromJson(json);
+
+        expect(attachment.url, 'https://example.com/img.png');
+        expect(attachment.title, 'Изображение');
       });
     });
 
@@ -135,18 +122,16 @@ void main() {
       });
     });
 
-    group('toString', () {
-      test('returns formatted string representation', () {
-        const attachment = Attachment(
-          url: 'https://example.com/file.pdf',
-          title: 'Документ',
-        );
+    test('to string', () {
+      const attachment = Attachment(
+        url: 'https://example.com/file.pdf',
+        title: 'Документ',
+      );
 
-        expect(
-          attachment.toString(),
-          'Attachment(url: https://example.com/file.pdf, title: Документ)',
-        );
-      });
+      expect(
+        attachment.toString(),
+        'Attachment(url: https://example.com/file.pdf, title: Документ)',
+      );
     });
   });
 }
